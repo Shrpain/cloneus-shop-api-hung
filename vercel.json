@@ -1,0 +1,1 @@
+{"$schema":"https://openapi.vercel.sh/vercel.json","framework":null,"rewrites":[{"destination":"/api/otp-services?type=mail","source":"/api/mail-otp-services"},{"destination":"/api/otp-services?type=phone","source":"/api/phone-otp-services"}]}

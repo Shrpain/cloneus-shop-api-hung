@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nạp tiền vào ví — Gian hàng của Hưng</title>
+<meta name="description" content="Nạp tiền vào ví bằng mã QR VietQR hoặc link payOS. Tiền vào ví tự động.">
+<style>
+  
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f1f4f9;color:#182338;line-height:1.6;-webkit-text-size-adjust:100%}
+  a{color:inherit}
+  button{font-family:inherit}
+  :focus-visible{outline:2px solid #ff8a00;outline-offset:2px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .topbar{background:#ffb020;color:#241a00;font-weight:700;font-size:14px;text-align:center;padding:9px 12px}
+  header{background:#0d1b33;color:#fff;position:sticky;top:0;z-index:20}
+  .head{display:flex;align-items:center;gap:14px;padding:12px 0;flex-wrap:nowrap}
+  .logo{font-size:21px;font-weight:800;text-decoration:none}
+  .logo span{color:#ffb020}
+  nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+  nav a{color:#dbe4f5;text-decoration:none;font-size:14px;padding:10px 10px;border-radius:8px;white-space:nowrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;border-radius:12px;padding:13px 22px;font-size:15.5px;border:0;cursor:pointer;min-height:48px;white-space:nowrap}
+  .btn-amber{background:linear-gradient(135deg,#ffb020,#ff8a00);color:#241a00}
+  .btn-navy{background:#0d1b33;color:#fff}
+  .btn-sm{padding:9px 16px;font-size:14px;min-height:44px}
+  .login-btn{background:transparent;color:#fff;border:1.5px solid #ffffff8c}
+  .btn:disabled{opacity:.6;cursor:wait}
+  main{padding:32px 0 20px}
+  h1{font-size:clamp(24px,3.4vw,28px);margin-bottom:6px}
+  .lead{color:#475569;font-size:15px;margin-bottom:22px}
+  .balance-bar{background:#0d1b33;color:#fff;border-radius:18px;padding:20px 22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+  .balance-bar .lbl{font-size:13.5px;color:#cdd8ec}
+  .balance-bar .val{font-size:32px;font-weight:800;color:#ffb020;line-height:1.15}
+  .balance-bar .btn{margin-left:auto}
+  
+  
+  
+  
+  
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .card{background:#fff;border:1px solid #e2e8f2;border-radius:18px;padding:24px}
+  .card h2{font-size:19px;margin-bottom:4px}
+  .card .sub{color:#475569;font-size:14px;margin-bottom:16px}
+  .how ol{padding-left:20px}
+  .how li{padding:6px 0;font-size:15px}
+  .badge{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:5px 11px;margin-bottom:12px;background:#e5f6ec;color:#0b6b3a}
+  .badge.alt{background:#fff3d1;color:#7a5200}
+  .qr-box{text-align:center;margin:4px 0 6px}
+  .qr-box img{width:280px;height:280px;max-width:100%;border:1px solid #e2e8f2;border-radius:16px;background:#fff;padding:8px}
+  
+  .info{font-size:15px}
+  .info .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed #e2e8f2;align-items:center}
+  .info .row:last-child{border-bottom:0}
+  .info .row span:first-child{color:#475569}
+  .info .row b{word-break:break-all;text-align:right}
+  .code-pill{display:inline-block;background:#fff8e6;border:1.5px dashed #0d1b33;border-radius:10px;padding:8px 14px;font-weight:800;font-size:20px}
+  .copy-btn{background:#0d1b33;border:0;color:#fff;font-weight:700;cursor:pointer;font-size:13.5px;border-radius:8px;padding:10px 12px;white-space:nowrap;min-height:44px}
+  .note{font-size:13.5px;color:#475569;margin-top:14px}
+  .amount-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .chip{border:1.5px solid #e2e8f2;background:#fff;border-radius:999px;padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:44px}
+  .chip.sel{border-color:#0d1b33;background:#0d1b33;color:#fff}
+  .field input{width:100%;padding:13px 14px;font-size:16px;border:1.5px solid #e2e8f2;border-radius:10px;font-family:inherit}
+  .field input:focus{outline:none;border-color:#0d1b33}
+  .card .btn{width:100%;margin-top:14px}
+  .result{border-radius:12px;padding:14px 16px;font-size:14.5px;margin-top:16px;display:none}
+  .result.ok{display:block;background:#e5f6ec;border:1px solid #bfe6cb;color:#0b5c33}
+  .result.error{display:block;background:#fdecec;border:1px solid #f3c1c1;color:#7a1d1d}
+  .result.info{display:block;background:#fff4e0;border:1px solid #f5d9a0;color:#7a5200}
+  .user-box{max-width:560px;margin:0 auto 22px;background:#fff;border:1px solid #e2e8f2;border-radius:18px;padding:26px;text-align:center}
+  .user-box input{width:100%;padding:13px 14px;font-size:16px;border:1.5px solid #e2e8f2;border-radius:10px;font-family:inherit;margin:10px 0}
+  .user-box input:focus{outline:none;border-color:#0d1b33}
+  footer{background:#0d1b33;color:#cdd8ec;margin-top:56px;padding:34px 0;font-size:13.5px}
+  body{display:flex;flex-direction:column;min-height:100vh}footer{margin-top:auto}
+  
+  
+  @media (max-width:860px){
+    .grid2{grid-template-columns:1fr}
+    nav{display:flex;order:3;flex:0 0 100%;flex-wrap:nowrap;overflow-x:auto;margin-left:0}
+    nav a{padding:12px 10px}
+    .head{flex-wrap:wrap;row-gap:4px}
+    .qr-box img{width:260px;height:260px}
+  }
+  @media (max-width:560px){
+    .card{padding:20px}
+    .head .btn-ghost,.head .login-btn{display:none}
+    .balance-bar .btn{margin-left:0;width:100%}
+    .qr-box img{width:100%;max-width:260px;height:auto}
+    .code-pill{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">Nạp tiền vào ví — tự động khi đúng nội dung chuyển khoản</div>
+
+<header>
+  <div class="wrap head">
+    <a class="logo" href="/">Hưng<span>·</span>CloneUS</a>
+    <nav>
+      <a href="/#san-pham">Tài khoản Muse AI</a>
+      <a href="/account.html">Tài khoản của tôi</a>
+      <a href="/#huong-dan">Hướng dẫn</a>
+      <a href="/#faq">Hỏi đáp</a>
+      <a href="/login.html">Đăng nhập</a>
+    </nav>
+    <a class="btn btn-sm login-btn" href="/login.html">Đăng nhập</a>
+    <a class="btn btn-amber btn-sm" href="/account.html">Tài khoản của tôi</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="card how" style="max-width:560px;margin:0 auto 22px">
+      <h2>Nạp tiền trong 3 bước</h2>
+      <ol>
+        <li>Nhập tên tài khoản để xem nội dung chuyển khoản của bạn.</li>
+        <li>Quét mã QR chung, chuyển khoản với nội dung SUIEU + tên tài khoản — tiền vào ví tự động.</li>
+        <li>Chờ hệ thống tự cộng tiền — số dư tự cập nhật ngay trên trang này.</li>
+      </ol>
+      <p class="note">Một mã QR chung cho mọi tài khoản — nội dung chuyển khoản là SUIEU + tên tài khoản của bạn.</p>
+    </div>
+
+    <div id="user-needed" class="user-box" style="display:none">
+      <h1>Nhập tên tài khoản của bạn</h1>
+      <p class="lead">Nhập tên tài khoản bạn đã đăng ký để xem mã nạp tiền của bạn.</p>
+      <input type="text" id="username-input" placeholder="Tên tài khoản của bạn" autocomplete="username" aria-label="Tên tài khoản của bạn">
+      <button class="btn btn-amber" id="username-btn" style="width:100%">Xem mã nạp tiền</button>
+      <p class="note">Chưa có tài khoản? <a href="/register.html" style="font-weight:700;color:#0d1b33">Đăng ký ngay</a>.</p>
+    </div>
+
+    <div id="topup-main" style="display:none">
+      <h1>Nạp tiền vào ví</h1>
+      <p class="lead">Tài khoản <b id="hello-username">—</b> · Nạp bao nhiêu cũng được, tiền vào ví tự động.</p>
+
+      <div class="balance-bar">
+        <div><div class="lbl">Số dư ví hiện tại</div><div class="val" id="wallet-balance">—</div></div>
+        <a class="btn btn-amber btn-sm" href="/#san-pham">Mua tài khoản ngay</a>
+      </div>
+
+
+      <div class="grid2">
+        <div class="card">
+          <span class="badge">Cách 1 · Chuyển khoản VietQR</span>
+          <h2>Quét mã QR, chuyển khoản bất kỳ số tiền nào</h2>
+          <p class="sub">Một mã QR chung cho mọi tài khoản. Chuyển khoản với nội dung SUIEU + tên tài khoản của bạn, bao nhiêu cũng được — hệ thống tự cộng đúng số tiền đó vào ví.</p>
+          <div class="qr-box"><img id="static-qr" alt="Mã QR nạp tiền" src="https://img.vietqr.io/image/970452-2104102003-qr_only.png"></div>
+          <div class="info">
+            <div class="row"><span>Ngân hàng</span><b>KienLongBank</b></div>
+            <div class="row"><span>Số tài khoản</span><b>2104102003 <button class="copy-btn" data-copy="2104102003">Sao chép</button></b></div>
+            <div class="row"><span>Nội dung chuyển khoản</span><span><span class="code-pill" id="topup-code">—</span><button class="copy-btn" id="copy-code">Sao chép</button></span></div>
+          </div>
+          <p class="note">Giữ đúng nội dung chuyển khoản, không thêm bớt ký tự. Chuyển sai nội dung thì tiền không tự cộng vào ví — liên hệ hỗ trợ kèm mã giao dịch để được cộng tay.</p>
+          <div class="result info" id="static-status">Đang chờ bạn chuyển khoản… Số dư tự cập nhật khi tiền vào ví.</div>
+        </div>
+
+        <div class="card">
+          <span class="badge alt">Cách 2 — Link thanh toán payOS</span>
+          <h2>Nạp đúng một số tiền cụ thể</h2>
+          <p class="sub">Tạo link thanh toán theo số tiền bạn nhập, quét mã QR payOS hoặc mở trang thanh toán. Phù hợp khi muốn nạp đúng số tiền của một gói.</p>
+          <div class="field"><input type="text" id="payos-amount" inputmode="numeric" placeholder="Nhập số tiền cần nạp (VND)" aria-label="Số tiền cần nạp (VND)"></div>
+          <div class="amount-row" id="amount-chips">
+            <button type="button" class="chip" data-amount="9999">9.999đ</button>
+            <button type="button" class="chip" data-amount="20000">20.000đ</button>
+            <button type="button" class="chip" data-amount="50000">50.000đ</button>
+            <button type="button" class="chip" data-amount="129000">129.000đ</button>
+            <button type="button" class="chip" data-amount="500000">500.000đ</button>
+          </div>
+          <button class="btn btn-navy" id="payos-btn">Tạo mã QR</button>
+          <div id="payos-box" style="display:none">
+            <div class="qr-box" style="margin-top:18px"><img id="payos-qr" alt="Mã QR payOS" src=""></div>
+            <div class="info">
+              <div class="row"><span>Mã đơn nạp</span><b id="payos-order">—</b></div>
+              <div class="row"><span>Số tiền</span><b id="payos-amount-show">—</b></div>
+            </div>
+            <a class="btn btn-amber" id="payos-checkout" href="#" target="_blank" rel="noopener" style="margin-top:14px">Mở trang thanh toán payOS</a>
+            <div class="result info" id="payos-status">Đang chờ thanh toán… Tiền vào ví sẽ tự báo.</div>
+          </div>
+          <div class="result error" id="payos-error"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b style="color:#fff">Hưng · CloneUS</b>
+    <p style="margin-top:6px">Nạp tiền vào ví để mua tài khoản Muse AI — tiền nạp chỉ dùng để mua hàng tại đây.</p>
+  </div>
+</footer>
+
+<script>
+function vnd(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function getUsername() {
+  try {
+    var d = JSON.parse(sessionStorage.getItem('hung_registration') || 'null');
+    if (d && d.username) return d.username;
+  } catch (e) {}
+  try { return localStorage.getItem('hung_username') || ''; } catch (e) { return ''; }
+}
+function setUsername(u) {
+  try { localStorage.setItem('hung_username', u); } catch (e) {}
+  try {
+    var d = JSON.parse(sessionStorage.getItem('hung_registration') || 'null') || {};
+    d.username = u;
+    sessionStorage.setItem('hung_registration', JSON.stringify(d));
+  } catch (e) {}
+}
+
+var username = getUsername();
+var userNeeded = document.getElementById('user-needed');
+var main = document.getElementById('topup-main');
+var balanceBefore = null;
+var balanceTimer = null;
+var payosTimer = null;
+
+function copyText(t, btn) {
+  function done() { if (btn) { var o = btn.textContent; btn.textContent = 'Đã sao chép'; setTimeout(function () { btn.textContent = o; }, 1500); } }
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+  else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+}
+document.querySelectorAll('[data-copy]').forEach(function (b) {
+  b.addEventListener('click', function () { copyText(b.getAttribute('data-copy'), b); });
+});
+document.getElementById('copy-code').addEventListener('click', function () {
+  copyText(document.getElementById('topup-code').textContent, this);
+});
+
+function refreshBalance() {
+  fetch('/api/wallet?username=' + encodeURIComponent(username)).then(function (r) { return r.json(); }).then(function (d) {
+    if (d && d.status === 'success') {
+      var bal = Number(d.balance) || 0;
+      document.getElementById('wallet-balance').textContent = vnd(bal);
+      if (balanceBefore !== null && bal > balanceBefore) {
+        var s = document.getElementById('static-status');
+        s.className = 'result ok';
+        s.textContent = 'Đã nhận ' + vnd(bal - balanceBefore) + ' vào ví. Số dư: ' + vnd(bal) + '.';
+        var p = document.getElementById('payos-status');
+        if (p && document.getElementById('payos-box').style.display !== 'none') { p.className = 'result ok'; p.textContent = 'Đã nhận tiền vào ví. Số dư: ' + vnd(bal) + '.'; }
+      }
+      balanceBefore = bal;
+    }
+  }).catch(function () {});
+}
+
+function init() {
+  document.getElementById('hello-username').textContent = username;
+  fetch('/api/topup-code?username=' + encodeURIComponent(username)).then(function (r) { return r.json(); }).then(function (d) {
+    if (d && d.status === 'success' && d.code) {
+      document.getElementById('topup-code').textContent = d.code;
+    } else {
+      document.getElementById('topup-code').textContent = 'Chưa lấy được mã — thử tải lại trang';
+      document.getElementById('static-status').className = 'result error';
+      document.getElementById('static-status').textContent = (d && d.message) || 'Chưa lấy được mã nạp của bạn. Vui lòng tải lại trang.';
+    }
+  }).catch(function () {
+    document.getElementById('static-status').className = 'result error';
+    document.getElementById('static-status').textContent = 'Không kết nối được tới máy chủ. Vui lòng thử lại sau.';
+  });
+  refreshBalance();
+  balanceTimer = setInterval(refreshBalance, 5000);
+}
+
+if (!username) {
+  userNeeded.style.display = 'block';
+  document.getElementById('username-btn').addEventListener('click', function () {
+    var u = document.getElementById('username-input').value.trim();
+    if (!/^[A-Za-z0-9_]{3,}$/.test(u)) { alert('Tên tài khoản phải có ít nhất 3 ký tự, chỉ gồm chữ, số và dấu gạch dưới.'); return; }
+    setUsername(u);
+    username = u;
+    userNeeded.style.display = 'none';
+    main.style.display = 'block';
+    init();
+  });
+} else {
+  main.style.display = 'block';
+  init();
+}
+
+// ---- Cách 2: tạo link payOS ----
+document.querySelectorAll('#amount-chips .chip').forEach(function (c) {
+  c.addEventListener('click', function () {
+    document.querySelectorAll('#amount-chips .chip').forEach(function (x) { x.classList.remove('sel'); });
+    c.classList.add('sel');
+    document.getElementById('payos-amount').value = Number(c.getAttribute('data-amount')).toLocaleString('vi-VN');
+  });
+});
+document.getElementById('payos-amount').addEventListener('input', function () {
+  document.querySelectorAll('#amount-chips .chip').forEach(function (x) { x.classList.remove('sel'); });
+});
+document.getElementById('payos-btn').addEventListener('click', function () {
+  var raw = document.getElementById('payos-amount').value.replace(/[^0-9]/g, '');
+  var amount = parseInt(raw, 10);
+  var err = document.getElementById('payos-error');
+  err.className = 'result'; err.textContent = '';
+  if (!amount || amount < 1000) { err.className = 'result error'; err.textContent = 'Nạp tối thiểu 1.000đ.'; return; }
+  if (amount > 50000000) { err.className = 'result error'; err.textContent = 'Nạp tối đa 50.000.000đ.'; return; }
+  var btn = document.getElementById('payos-btn');
+  btn.disabled = true; btn.textContent = 'Đang tạo mã…';
+  fetch('/api/payos-create', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: username, amount: amount }),
+  }).then(function (r) { return r.json(); }).then(function (d) {
+    btn.disabled = false; btn.textContent = 'Tạo mã QR';
+    if (d && d.status === 'success') {
+      document.getElementById('payos-box').style.display = 'block';
+      document.getElementById('payos-order').textContent = d.orderCode;
+      document.getElementById('payos-amount-show').textContent = vnd(d.amount);
+      document.getElementById('payos-qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=' + encodeURIComponent(d.qrCode);
+      document.getElementById('payos-checkout').href = d.checkoutUrl;
+      var st = document.getElementById('payos-status');
+      st.className = 'result info'; st.textContent = 'Đang chờ thanh toán… Tiền vào ví sẽ tự báo.';
+      if (payosTimer) clearInterval(payosTimer);
+      payosTimer = setInterval(function () { pollPayosOrder(d.orderCode); }, 3000);
+    } else {
+      err.className = 'result error';
+      err.textContent = (d && d.message) || 'Không tạo được link thanh toán. Vui lòng thử lại.';
+    }
+  }).catch(function () {
+    btn.disabled = false; btn.textContent = 'Tạo mã QR';
+    err.className = 'result error'; err.textContent = 'Không kết nối được tới máy chủ. Vui lòng thử lại.';
+  });
+});
+function pollPayosOrder(orderCode) {
+  fetch('/api/order-status?orderCode=' + encodeURIComponent(orderCode)).then(function (r) { return r.json(); }).then(function (d) {
+    if (d && d.type === 'topup' && d.status === 'paid') {
+      if (payosTimer) clearInterval(payosTimer);
+      var st = document.getElementById('payos-status');
+      st.className = 'result ok';
+      st.textContent = 'Đã nhận ' + vnd(d.amount) + ' vào ví.';
+      refreshBalance();
+    }
+  }).catch(function () {});
+}
+
+// Nếu payOS trả về topup.html?topup=<orderCode> thì tự theo dõi đơn đó.
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var oc = params.get('topup');
+  if (oc && username) {
+    document.getElementById('payos-box').style.display = 'block';
+    document.getElementById('payos-order').textContent = oc;
+    document.getElementById('payos-amount-show').textContent = '—';
+    document.getElementById('payos-qr').style.display = 'none';
+    document.getElementById('payos-checkout').style.display = 'none';
+    if (payosTimer) clearInterval(payosTimer);
+    payosTimer = setInterval(function () { pollPayosOrder(oc); }, 3000);
+    pollPayosOrder(oc);
+  }
+})();
+</script>
+</body>
+</html>

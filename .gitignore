@@ -1,0 +1,6 @@
+# Secrets & local-only files — never commit these to GitHub
+.env
+.env.local
+.env.production
+.vercel
+node_modules/

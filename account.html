@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tài khoản của bạn — Gian hàng của Hưng</title>
+<meta name="description" content="Tài khoản vừa đăng ký dưới ref 1267 và các bước tiếp theo.">
+<style>
+  
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f1f4f9;color:#182338;line-height:1.6;-webkit-text-size-adjust:100%}
+  a{color:inherit}
+  button{font-family:inherit}
+  :focus-visible{outline:2px solid #ff8a00;outline-offset:2px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .topbar{background:#ffb020;color:#241a00;font-weight:700;font-size:14px;text-align:center;padding:9px 12px}
+  
+  header{background:#0d1b33;color:#fff;position:sticky;top:0;z-index:20}
+  .head{display:flex;align-items:center;gap:14px;padding:12px 0;flex-wrap:nowrap}
+  .logo{font-size:21px;font-weight:800;text-decoration:none}
+  .logo span{color:#ffb020}
+  nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+  nav a{color:#dbe4f5;text-decoration:none;font-size:14px;padding:10px 10px;border-radius:8px;white-space:nowrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:800;border-radius:12px;padding:13px 22px;font-size:15.5px;border:0;cursor:pointer;min-height:48px;white-space:nowrap}
+  .btn-amber{background:linear-gradient(135deg,#ffb020,#ff8a00);color:#241a00}
+  .btn-navy{background:#0d1b33;color:#fff}
+  .btn-ghost{background:transparent;color:#0d1b33;border:2px solid #c9d2e3}
+  .btn-sm{padding:9px 16px;font-size:14px;min-height:44px}
+  main{padding:36px 0 20px}
+  .card{max-width:640px;margin:0 auto;background:#fff;border:1px solid #e2e8f2;border-radius:18px;padding:30px;text-align:center}
+  .ok-badge{width:72px;height:72px;border-radius:50%;background:#e5f6ec;color:#0b6b3a;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  h1{font-size:clamp(24px,3.4vw,28px);margin-bottom:8px}
+  .lead{color:#475569;font-size:15px}
+  .account-box{margin:22px 0;background:#f1f4f9;border:1px solid #e2e8f2;border-radius:12px;padding:18px;text-align:left}
+  .account-box .row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed #e2e8f2;font-size:15px}
+  .account-box .row:last-child{border-bottom:0}
+  .account-box .row span:first-child{color:#475569}
+  .account-box .row b{word-break:break-all}
+  .steps{text-align:left;margin:0 0 22px}
+  .steps h2{font-size:17px;margin-bottom:10px}
+  .steps ol{list-style:none}
+  .steps li{padding:9px 0;border-bottom:1px dashed #e2e8f2;font-size:14.5px;display:flex;gap:10px}
+  .steps li:last-child{border-bottom:0}
+  .steps li .n{flex:0 0 24px;height:24px;border-radius:50%;background:#0d1b33;color:#fff;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .steps a{color:#0d1b33;font-weight:700}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .note{font-size:13.5px;color:#475569;margin-top:18px}
+  /* Wallet */
+  .card.wallet{padding:0;overflow:hidden;text-align:left}
+  .wallet-hero{background:#0d1b33;color:#fff;padding:26px}
+  .wallet-hero .lbl{font-size:13.5px;color:#cdd8ec}
+  .wallet-hero .wuser{font-size:15px;margin-bottom:16px}
+  .wallet-hero .wuser b{color:#fff}
+  .wallet-balance{font-size:40px;font-weight:800;color:#ffb020;line-height:1.1}
+  .wallet-sub{color:#cdd8ec;font-size:14px;margin-top:10px}
+  .wallet-body{padding:22px 26px 26px}
+  .code-box{background:#f1f4f9;border:1.5px dashed #0d1b33;border-radius:14px;padding:16px 18px;margin-bottom:18px}
+  .code-lbl{font-size:13px;font-weight:700;color:#475569;margin-bottom:10px}
+  .code-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .code-pill{font-size:20px;font-weight:800;word-break:break-all}
+  .wallet-body .cta{justify-content:flex-start}
+  #history-box{margin-top:24px}
+  #history-box h2{font-size:17px;margin-bottom:10px}
+  
+  footer{background:#0d1b33;color:#cdd8ec;margin-top:56px;padding:34px 0;font-size:13.5px}
+  body{display:flex;flex-direction:column;min-height:100vh}footer{margin-top:auto}
+  
+  @media (max-width:860px){
+    nav{display:flex;order:3;flex:0 0 100%;flex-wrap:nowrap;overflow-x:auto;margin-left:0}
+    nav a{padding:12px 10px}
+    .head{flex-wrap:wrap;row-gap:4px}
+  }
+  @media (max-width:560px){
+    .card{padding:20px}
+    .wallet-hero{padding:22px 20px}
+    .wallet-body{padding:18px 20px 20px}
+    .cta .btn{flex:1 1 100%}
+    main{padding:28px 0 20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">Tài khoản của bạn — Gian hàng của Hưng</div>
+
+<header>
+  <div class="wrap head">
+    <a class="logo" href="/">Hưng<span>·</span>CloneUS</a>
+    <nav>
+      <a href="/#san-pham">Tài khoản Muse AI</a>
+      <a href="/#otp-gmail">Thuê OTP Gmail</a>
+      <a href="/#huong-dan">Hướng dẫn</a>
+      <a href="/#faq">Hỏi đáp</a>
+    </nav>
+    <a class="btn btn-amber btn-sm" href="/login.html">Đăng nhập</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="card" id="success-card" style="display:none">
+      <div class="ok-badge">✓</div>
+      <h1>Đăng ký thành công!</h1>
+      <p class="lead" id="success-message">Tài khoản của bạn đã được tạo dưới ref 1267.</p>
+      <div class="account-box">
+        <div class="row"><span>Tên tài khoản</span><b id="account-username">—</b></div>
+        <div class="row"><span>Đăng ký dưới ref</span><b>1267 (Hưng)</b></div>
+        <div class="row" id="balance-row" style="display:none"><span>Số dư hiện tại</span><b id="account-balance">—</b></div>
+      </div>
+      <div class="steps">
+        <h2>Các bước tiếp theo</h2>
+        <ol>
+          <li><span class="n">1</span><span>Nạp tiền vào ví của bạn trên trang này.</span></li>
+          <li><span class="n">2</span><span>Mua tài khoản Muse AI hoặc thuê OTP — tài khoản được giao tự động sau khi mua.</span></li>
+        </ol>
+      </div>
+      <div class="cta">
+        <a class="btn btn-amber" href="/login.html">Đăng nhập</a>
+        <a class="btn btn-navy" href="/">Xem sản phẩm</a>
+        <a class="btn btn-ghost" href="/register.html">Đăng ký tài khoản khác</a>
+      </div>
+      <p class="note">Mật khẩu không hiển thị ở đây — hãy giữ mật khẩu bạn đã đặt, trang này không lưu mật khẩu.</p>
+    </div>
+
+    <div class="card" id="empty-card" style="display:none">
+      <div class="ok-badge" style="background:#fff6d6;color:#8a6d00">?</div>
+      <h1>Chưa có thông tin đăng ký</h1>
+      <p class="lead">Bạn chưa đăng ký hoặc chưa đăng nhập. Đăng ký tài khoản mới, hoặc nhập tên tài khoản để xem ví và đơn hàng.</p>
+      <div class="cta" style="margin-top:22px">
+        <a class="btn btn-amber" href="/register.html">Đăng ký ngay</a>
+      </div>
+      <div id="wallet-login" style="display:none;margin-top:22px;border-top:1px dashed #e2e8f2;padding-top:18px">
+        <h2 style="font-size:19px;margin-bottom:6px">Đã có tài khoản? Xem ví của bạn</h2>
+        <p class="lead">Nhập tên tài khoản bạn đã đăng ký.</p>
+        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+          <input id="wallet-username-input" type="text" placeholder="Tên tài khoản của bạn" aria-label="Tên tài khoản của bạn" style="flex:1;min-width:200px;padding:12px 14px;font-size:16px;border:1.5px solid #e2e8f2;border-radius:10px;font-family:inherit">
+          <button class="btn btn-amber" id="wallet-username-btn" type="button">Xem ví</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card wallet" id="wallet-card" style="display:none;margin-top:18px">
+      <div class="wallet-hero">
+        <div class="wuser"><span class="lbl">Tài khoản · </span><b id="wallet-username">—</b></div>
+        <div class="lbl">Số dư ví</div>
+        <div class="wallet-balance" id="wallet-balance">—</div>
+        <p class="wallet-sub">Nạp tiền vào ví rồi mua tài khoản Muse AI ngay tại đây — giao tự động sau khi mua.</p>
+      </div>
+      <div class="wallet-body">
+        <div class="code-box">
+          <div class="code-lbl">Mã nạp tiền cố định của bạn</div>
+          <div class="code-row"><span class="code-pill" id="wallet-code">—</span><button class="btn btn-ghost btn-sm" id="copy-code-btn" type="button">Sao chép</button></div>
+          <p class="note" style="margin-top:12px">Chuyển khoản vào KienLongBank 2104102003 với nội dung đúng mã trên — hệ thống tự cộng tiền vào ví.</p>
+        </div>
+        <div class="cta">
+          <a class="btn btn-amber" href="/topup.html">Nạp tiền vào ví</a>
+          <a class="btn btn-navy" href="/#san-pham">Mua tài khoản Muse AI</a>
+        </div>
+        <div id="history-box">
+          <h2>Lịch sử gần đây</h2>
+          <div id="history-empty" class="note">Chưa có đơn hàng hay lần nạp tiền nào.</div>
+          <div id="history-list"></div>
+        </div>
+        <p class="note">Tài khoản đã mua sẽ hiện ở trên sau khi mua xong — nhớ lưu email, mật khẩu và cookie.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b style="color:#fff">Hưng · CloneUS</b>
+    <p style="margin-top:6px">Gian hàng tài khoản Muse AI và thuê OTP.<br>Khách đăng ký và mua ngay trên shop này.</p>
+  </div>
+</footer>
+
+<script>
+// Chỉ hiển thị những gì API đăng ký trả về; không bịa số dư, không hiện mật khẩu.
+(function () {
+  var data = null;
+  try { data = JSON.parse(sessionStorage.getItem('hung_registration') || 'null'); } catch (e) {}
+  var successCard = document.getElementById('success-card');
+  var emptyCard = document.getElementById('empty-card');
+  if (data && data.username) {
+    document.getElementById('account-username').textContent = data.username;
+    if (data.message) document.getElementById('success-message').textContent = data.message;
+    if (data.balance) {
+      document.getElementById('account-balance').textContent = data.balance;
+      document.getElementById('balance-row').style.display = 'flex';
+    }
+    successCard.style.display = 'block';
+  } else {
+    var saved = '';
+    try { saved = localStorage.getItem('hung_username') || ''; } catch (e) {}
+    if (!saved) emptyCard.style.display = 'block';
+  }
+})();
+
+// ---- Ví + mã nạp + lịch sử ----
+(function () {
+  function vnd(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function getUsername() {
+    try {
+      var d = JSON.parse(sessionStorage.getItem('hung_registration') || 'null');
+      if (d && d.username) return d.username;
+    } catch (e) {}
+    try { return localStorage.getItem('hung_username') || ''; } catch (e) { return ''; }
+  }
+  function saveUsername(u) {
+    try { localStorage.setItem('hung_username', u); } catch (e) {}
+    try {
+      var d = JSON.parse(sessionStorage.getItem('hung_registration') || 'null') || {};
+      d.username = u;
+      sessionStorage.setItem('hung_registration', JSON.stringify(d));
+    } catch (e) {}
+  }
+  var username = getUsername();
+  var walletCard = document.getElementById('wallet-card');
+  var walletLogin = document.getElementById('wallet-login');
+
+  function loadWallet() {
+    document.getElementById('wallet-username').textContent = username;
+    fetch('/api/wallet?username=' + encodeURIComponent(username)).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.status === 'success') {
+        document.getElementById('wallet-balance').textContent = vnd(d.balance || 0);
+      } else {
+        document.getElementById('wallet-balance').textContent = 'Chưa tải được';
+      }
+    }).catch(function () { document.getElementById('wallet-balance').textContent = 'Chưa tải được'; });
+    fetch('/api/topup-code?username=' + encodeURIComponent(username)).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.status === 'success' && d.code) {
+        document.getElementById('wallet-code').textContent = d.code;
+      } else {
+        document.getElementById('wallet-code').textContent = 'Chưa lấy được mã';
+      }
+    }).catch(function () { document.getElementById('wallet-code').textContent = 'Chưa lấy được mã'; });
+    fetch('/api/order-status?username=' + encodeURIComponent(username)).then(function (r) { return r.json(); }).then(function (d) {
+      var list = document.getElementById('history-list');
+      var empty = document.getElementById('history-empty');
+      if (!d || d.status !== 'success') { return; }
+      var rows = [];
+      (d.orders || []).forEach(function (o) {
+        var line = '<div style="padding:10px 0;border-bottom:1px dashed #e2e8f2;font-size:14.5px"><b>Đơn ' + esc(o.orderCode || '') + '</b> · ' + esc(o.productName || '') + ' · ' + vnd(o.amount || 0) + ' · ' + esc(o.status === 'delivered' ? 'Đã giao' : o.status || '') + '</div>';
+        if (o.status === 'delivered' && Array.isArray(o.account) && o.account.length) {
+          line += '<div style="background:#f1f4f9;border:1px solid #e2e8f2;border-radius:8px;padding:10px 12px;font-size:13.5px;word-break:break-all;margin:6px 0 10px">' + o.account.map(function (a) { return esc(a); }).join('<br>') + '</div>';
+        }
+        rows.push(line);
+      });
+      (d.topups || []).forEach(function (t) {
+        rows.push('<div style="padding:10px 0;border-bottom:1px dashed #e2e8f2;font-size:14.5px">Nạp tiền +' + vnd(t.amount || 0) + ' · ' + esc(t.source === 'direct' ? 'Chuyển khoản mã cố định' : 'payOS') + ' · ' + esc(t.at ? new Date(t.at).toLocaleString('vi-VN') : '') + '</div>');
+      });
+      if (rows.length) { empty.style.display = 'none'; list.innerHTML = rows.join(''); }
+    }).catch(function () {});
+  }
+
+  document.getElementById('copy-code-btn').addEventListener('click', function () {
+    var code = document.getElementById('wallet-code').textContent;
+    var btn = this;
+    function done() { btn.textContent = 'Đã sao chép'; setTimeout(function () { btn.textContent = 'Sao chép'; }, 1500); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(code).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+
+  if (username) {
+    walletCard.style.display = 'block';
+    loadWallet();
+  } else {
+    walletLogin.style.display = 'block';
+    document.getElementById('wallet-username-btn').addEventListener('click', function () {
+      var u = document.getElementById('wallet-username-input').value.trim();
+      if (!/^[A-Za-z0-9_]{3,}$/.test(u)) { alert('Tên tài khoản phải có ít nhất 3 ký tự.'); return; }
+      saveUsername(u);
+      username = u;
+      walletLogin.style.display = 'none';
+      document.getElementById('empty-card').style.display = 'none';
+      walletCard.style.display = 'block';
+      loadWallet();
+    });
+  }
+})();
+</script>
+</body>
+</html>
