@@ -47,7 +47,7 @@
   .badge{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:5px 11px;margin-bottom:12px;background:#e5f6ec;color:#0b6b3a}
   .badge.alt{background:#fff3d1;color:#7a5200}
   .qr-box{text-align:center;margin:4px 0 6px}
-  .qr-box img{width:280px;height:280px;max-width:100%;border:1px solid #e2e8f2;border-radius:16px;background:#fff;padding:8px}
+  .qr-box img{width:280px;height:auto;max-width:100%;border:1px solid #e2e8f2;border-radius:16px;background:#fff;padding:8px}
   
   .info{font-size:15px}
   .info .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed #e2e8f2;align-items:center}
@@ -115,10 +115,10 @@
       <h2>Nạp tiền trong 3 bước</h2>
       <ol>
         <li>Nhập tên tài khoản để xem nội dung chuyển khoản của bạn.</li>
-        <li>Quét mã QR chung, chuyển khoản với nội dung SUIEU + tên tài khoản — tiền vào ví tự động.</li>
+        <li>Quét mã QR — nội dung chuyển khoản tự điền sẵn, tiền vào ví tự động.</li>
         <li>Chờ hệ thống tự cộng tiền — số dư tự cập nhật ngay trên trang này.</li>
       </ol>
-      <p class="note">Một mã QR chung cho mọi tài khoản — nội dung chuyển khoản là SUIEU + tên tài khoản của bạn.</p>
+      <p class="note">Mã QR tự điền sẵn nội dung SUIEU + tên tài khoản của bạn.</p>
     </div>
 
     <div id="user-needed" class="user-box" style="display:none">
@@ -143,21 +143,21 @@
         <div class="card">
           <span class="badge">Cách 1 · Chuyển khoản VietQR</span>
           <h2>Quét mã QR, chuyển khoản bất kỳ số tiền nào</h2>
-          <p class="sub">Một mã QR chung cho mọi tài khoản. Chuyển khoản với nội dung SUIEU + tên tài khoản của bạn, bao nhiêu cũng được — hệ thống tự cộng đúng số tiền đó vào ví.</p>
-          <div class="qr-box"><img id="static-qr" alt="Mã QR nạp tiền" src="https://img.vietqr.io/image/970452-2104102003-qr_only.png"></div>
+          <p class="sub">Mã QR tự điền sẵn nội dung SUIEU + tên tài khoản — quét là chuyển đúng.</p>
+          <div class="qr-box"><img id="static-qr" alt="Mã QR nạp tiền" src="https://vietqr.app/img?bank=KienLongBank&acc=101499100004646156&template=compact&showinfo=true&holder=TRAN%20QUOC%20HUNG"></div>
           <div class="info">
             <div class="row"><span>Ngân hàng</span><b>KienLongBank</b></div>
-            <div class="row"><span>Số tài khoản</span><b>2104102003 <button class="copy-btn" data-copy="2104102003">Sao chép</button></b></div>
+            <div class="row"><span>Số tài khoản (VA)</span><b>101499100004646156 <button class="copy-btn" data-copy="101499100004646156">Sao chép</button></b></div>
             <div class="row"><span>Nội dung chuyển khoản</span><span><span class="code-pill" id="topup-code">—</span><button class="copy-btn" id="copy-code">Sao chép</button></span></div>
           </div>
-          <p class="note">Giữ đúng nội dung chuyển khoản, không thêm bớt ký tự. Chuyển sai nội dung thì tiền không tự cộng vào ví — liên hệ hỗ trợ kèm mã giao dịch để được cộng tay.</p>
+          <p class="note">Kiểm tra đúng nội dung trước khi chuyển — sai nội dung tiền không tự cộng.</p>
           <div class="result info" id="static-status">Đang chờ bạn chuyển khoản… Số dư tự cập nhật khi tiền vào ví.</div>
         </div>
 
         <div class="card">
           <span class="badge alt">Cách 2 — Link thanh toán payOS</span>
           <h2>Nạp đúng một số tiền cụ thể</h2>
-          <p class="sub">Tạo link thanh toán theo số tiền bạn nhập, quét mã QR payOS hoặc mở trang thanh toán. Phù hợp khi muốn nạp đúng số tiền của một gói.</p>
+          <p class="sub">Tạo link theo số tiền bạn nhập, quét mã QR payOS hoặc mở trang thanh toán.</p>
           <div class="field"><input type="text" id="payos-amount" inputmode="numeric" placeholder="Nhập số tiền cần nạp (VND)" aria-label="Số tiền cần nạp (VND)"></div>
           <div class="amount-row" id="amount-chips">
             <button type="button" class="chip" data-amount="9999">9.999đ</button>
@@ -250,6 +250,7 @@ function init() {
   fetch('/api/topup-code?username=' + encodeURIComponent(username)).then(function (r) { return r.json(); }).then(function (d) {
     if (d && d.status === 'success' && d.code) {
       document.getElementById('topup-code').textContent = d.code;
+      document.getElementById('static-qr').src = 'https://vietqr.app/img?bank=KienLongBank&acc=101499100004646156&template=compact&des=' + d.code + '&showinfo=true&holder=TRAN%20QUOC%20HUNG';
     } else {
       document.getElementById('topup-code').textContent = 'Chưa lấy được mã — thử tải lại trang';
       document.getElementById('static-status').className = 'result error';

@@ -4,7 +4,7 @@
 //  2. trừ ví (số dư < giá -> 400, không trừ; trừ xong mà âm thì hoàn lại)
 //  3. lưu order status 'pending' vào KV
 //  4. gọi CloneUS buy_product — thành công thì giao tài khoản, thất bại thì hoàn tiền.
-// Giá lấy server-side từ SELL_PRICES, chỉ bán productId '8' và '16'.
+// Giá lấy server-side từ SELL_PRICES; chỉ bán productId có trong SELL_PRICES.
 import {
   validUsername,
   jsonBody,
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
       message: 'Tên tài khoản không hợp lệ (3-32 ký tự, chỉ gồm chữ, số và dấu gạch dưới)',
     });
   }
-  if (productId !== '8' && productId !== '16') {
+  if (!SELL_PRICES[productId]) {
     return res.status(400).json({ status: 'error', message: 'Sản phẩm không hợp lệ' });
   }
   const price = SELL_PRICES[productId];

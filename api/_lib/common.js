@@ -24,8 +24,8 @@ export function newOrderCode() {
 }
 
 // Giá bán server-side — KHÔNG bao giờ tin số tiền client gửi.
-export const SELL_PRICES = { 8: 9999, 16: 129000 };
-export const PRODUCT_NAMES = { 8: 'Muse AI 1 ty token', 16: 'Muse AI 30 ty token' };
+export const SELL_PRICES = { 8: 9999, 16: 129000, 17: 14999, 20: 9999 };
+export const PRODUCT_NAMES = { 8: 'Muse AI 1 ty token', 16: 'Muse AI 30 ty token', 17: 'Muse AI 1 ty BH 1 tuan', 20: 'Muse AI Zin Full' };
 
 export function isKvNotConfigured(e) {
   return !!e && e.message === 'KV_NOT_CONFIGURED';
